@@ -14,17 +14,24 @@ import {
   View,
   TouchableOpacity,
   Text,
+  Platform,
+  StatusBar,
+  StyleSheet,
 } from 'react-native'
 import FAIcon from 'react-native-vector-icons/FontAwesome'
 
 export default props => (
   <Container>
-    <Header style={{
-      backgroundColor: "#3a455c",
-      height: 90,
-      borderBottomColor: "#757575",
-      borderBottomWidth: 0.5,
-    }}>
+    <Header style={[
+        {
+          backgroundColor: "#3a455c",
+          height: 90,
+          borderBottomColor: "#757575",
+          borderBottomWidth: 0.5,
+        },
+        styles.androidHeader
+      ]}
+    >
       <Left style={{ flexDirection: 'row'}}>
         <Icon 
           name="md-menu" 
@@ -116,3 +123,13 @@ export default props => (
 
   </Container>
 )
+
+const styles = StyleSheet.create({
+  androidHeader: {
+    ...Platform.select({
+      android: {
+        paddingTop: StatusBar.currentHeight,
+      }
+    })
+  }
+})
